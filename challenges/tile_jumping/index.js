@@ -49,10 +49,10 @@ function canJumpToLast(currentTileIndex, lastTileIndex, nums, originalTileVal, c
         if (originalTileVal > currentRecursionCount) {
           return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount);
         }
-      // } else {
-      //   // if the current tile's jump value is 0, you're no longer able to jump forward. return false
-      //   console.log('current tile\'s jump value is 0. not able to jump forward')
-      //   return false;
+      } else {
+        // if the current tile's jump value is 0, you're no longer able to jump forward. return false
+        console.log('current tile\'s jump value is 0. not able to jump forward')
+        return false;
       }
     }
     // if (currentTileVal === 0) {
