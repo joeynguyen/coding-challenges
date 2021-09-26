@@ -38,26 +38,26 @@ function canJumpToLast(currentTileIndex, lastTileIndex, nums, originalTileVal, c
   let currentTileVal = nums[currentTileIndex];
   console.log('canJumpToLast', { currentRecursionCount, currentTileIndex, currentTileVal, originalTileVal, lastTileIndex })
 
-    // if (currentTileVal === 0) {
-    //   if (originalTileVal && currentRecursionCount !== undefined) {
-    //     if (currentRecursionCount === originalTileVal) {
-    //       // if the current tile's jump value is 0, you're no longer able to jump forward. return false
-    //       console.log('canJumpToLast: current tile\'s jump value is 0. not able to jump forward')
-    //       return false;
-    //     }
-    //     console.log({currentRecursionCount, originalTileVal});
-    //     if (currentRecursionCount < originalTileVal) {
-    //       return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
-    //     }
-    //   } else {
-    //     // if the current tile's jump value is 0, you're no longer able to jump forward. return false
-    //     console.log('current tile\'s jump value is 0. not able to jump forward')
-    //     return false;
-    //   }
-    // }
     if (currentTileVal === 0) {
-      return false;
+      if (originalTileVal && currentRecursionCount !== undefined) {
+        if (originalTileVal === currentRecursionCount) {
+          // if the current tile's jump value is 0, you're no longer able to jump forward. return false
+          console.log('canJumpToLast: current tile\'s jump value is 0. not able to jump forward')
+          return false;
+        }
+        console.log({currentRecursionCount, originalTileVal});
+        if (originalTileVal > currentRecursionCount) {
+          return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
+        }
+      // } else {
+      //   // if the current tile's jump value is 0, you're no longer able to jump forward. return false
+      //   console.log('current tile\'s jump value is 0. not able to jump forward')
+      //   return false;
+      }
     }
+    // if (currentTileVal === 0) {
+    //   return false;
+    // }
 
   /*
     if the current tile's jump value is greater than or equal to last tiles' index
