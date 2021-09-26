@@ -13,26 +13,14 @@
 // [0,2,4]	    false
 // [1,2,0,0,1]	false
 function can_reach_end(nums) {
-  let canFinish = false;
-  let canJump = true;
-  // let lastTileIndex = nums.length - 1;
   let currentTileIndex = 0;
+  let lastTileIndex = nums.length - 1;
   console.log('input:', nums);
 
   // if the number of tiles is 1, you're already on the last tile. return true
   if (nums.length === 1) return true;
 
-  // if the current tile position is the same as last tile position,
-  // you're already on the last tile. return true
-  // if (currentTileIndex === lastTileIndex) return true;
-
-  let lastTileIndex = nums.length - 1;
   return canJumpToLast(currentTileIndex, lastTileIndex, nums, undefined, undefined);
-
-  // check if current tile can jump forward to another tile
-  // if so check for the jumping number of that next tile, repeat
-
-  //
 }
 function canJumpToLast(currentTileIndex, lastTileIndex, nums, originalTileVal, currentRecursionCount) {
   let currentTileVal = nums[currentTileIndex];
