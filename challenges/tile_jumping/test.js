@@ -17,10 +17,10 @@ const testCases = [
     input: [0, 2, 4],
     output: false,
   },
-  // {
-  //   input: [1, 2, 0, 0, 1],
-  //   output: false,
-  // },
+  {
+    input: [1, 2, 0, 0, 1],
+    output: false,
+  },
   {
     input: [6, 7, 0, 0, 1],
     output: true,
