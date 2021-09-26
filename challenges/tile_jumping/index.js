@@ -38,8 +38,6 @@ function canJumpToLast(currentTileIndex, lastTileIndex, nums, originalTileVal, c
   let currentTileVal = nums[currentTileIndex];
   console.log('canJumpToLast', { currentRecursionCount, currentTileIndex, currentTileVal, originalTileVal, lastTileIndex })
 
-  // [1, 2, 0, 0, 1]
-  // [6, 4, 0, 0, 0, 0, 3, 1, 2, 0]
   if (currentTileVal === 0) {
     if (originalTileVal && currentRecursionCount !== undefined) {
       // while looping through possible tile jumps, once the number of times jumped matches the max
@@ -50,28 +48,14 @@ function canJumpToLast(currentTileIndex, lastTileIndex, nums, originalTileVal, c
         return false;
       } else {
         console.log({ currentRecursionCount, originalTileVal });
-        // if (canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1)) {
-        //   return true;
-        // } else {
-          //
-          return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
-
-          // return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, currentTileVal, currentRecursionCount );
-        // }
+        return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
       }
-      console.log({ currentRecursionCount, originalTileVal });
-      // if (originalTileVal > currentRecursionCount) {
-      //   return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
-      // }
     } else {
       // if the current tile's jump value is 0, you're no longer able to jump forward. return false
       console.log('current tile\'s jump value is 0. not able to jump forward')
       return false;
     }
   }
-  // if (currentTileVal === 0) {
-  //   return false;
-  // }
 
   /*
     if the current tile's jump value is greater than or equal to last tiles' index
@@ -86,60 +70,58 @@ function canJumpToLast(currentTileIndex, lastTileIndex, nums, originalTileVal, c
 
   // if the current jump value is greater than 1, attempt the jump for each possible tile you
   // can jump to, and run this function recursively
-
-  // if (currentTileVal > 0) {
-  //   currentTileIndex++;
-  //   canJumpToLast(currentTileIndex, lastTileIndex);
-  // } else {
-  // }
-  // for (let i = 0; i < currentTileVal; i++) {
-  //   console.log('canJumpToLast: for loop, i: ', i)
-  //   if (canJumpToLast(currentTileIndex + i, lastTileIndex, nums) === true) {
-  //     console.log('nums[currentTileIndex + i]', nums[currentTileIndex + i])
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-  // return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums);
   if (originalTileVal && currentRecursionCount !== undefined) {
     if (originalTileVal === currentRecursionCount) {
       return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, currentTileVal, 1);
     }
+
+    // if the current tile's value is greater than 0, test if it can reach the end before
+    // moving to the next tile
+    if (currentTileVal > 0) {
+      if (canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, currentTileVal, 1)) {
+        return true
+      }
+    }
+
     // originalTileVal > currentRecursionCount
     return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
-    // if (canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, currentTileVal, 1)) {
-    //   return true;
-    // } else {
-    //   return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, originalTileVal, currentRecursionCount + 1);
-    // }
   }
 
   return canJumpToLast(currentTileIndex + 1, lastTileIndex, nums, currentTileVal, 1);
+    // [3, 0, 2, 0, 2, 0, 0]
+      // currentTileIndex: 0, currentTileVal: 3, originalTileVal: undefined, currentRecursionCount: undefined
+        // currentTileIndex: 1, currentTileVal: 0, originalTileVal: 3, currentRecursionCount: 1
+        // currentTileIndex: 2, currentTileVal: 2, originalTileVal: 3, currentRecursionCount: 2
+          // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 2, currentRecursionCount: 1
+          // currentTileIndex: 4, currentTileVal: 2, originalTileVal: 2, currentRecursionCount: 2
+            // pass
+        // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 3, currentRecursionCount: 3
+          // fail
+    // pass
     // [1, 2, 0, 0, 1]
       // currentTileIndex: 0, currentTileVal: 1, originalTileVal: undefined, currentRecursionCount: undefined
-      // currentTileIndex: 1, currentTileVal: 2, originalTileVal: 1, currentRecursionCount: 1
-        // currentTileIndex: 2, currentTileVal: 0, originalTileVal: 2, currentRecursionCount: 1
-        // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 2, currentRecursionCount: 2
+        // currentTileIndex: 1, currentTileVal: 2, originalTileVal: 1, currentRecursionCount: 1
+          // currentTileIndex: 2, currentTileVal: 0, originalTileVal: 2, currentRecursionCount: 1
+          // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 2, currentRecursionCount: 2
       // fail
     // [6, 4, 0, 0, 0, 0, 3, 1, 2, 0]
       // currentTileIndex: 0, currentTileVal: 6, originalTileVal: undefined, currentRecursionCount: undefined
-      // currentTileIndex: 1, currentTileVal: 4, originalTileVal: 6, currentRecursionCount: 1
-        // currentTileIndex: 2, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 1
-        // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 2
-        // currentTileIndex: 4, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 3
-        // currentTileIndex: 5, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 4
-        // fail
-      // currentTileIndex: 2, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 2
-        // fails
-      // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 3
-        // fails
-      // currentTileIndex: 4, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 4
-        // fails
-      // currentTileIndex: 5, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 5
-        // fails
-      // currentTileIndex: 6, currentTileVal: 3, originalTileVal: 6, currentRecursionCount: 6
-        // currentTileIndex: 7, currentTileVal: 1, originalTileVal: 3, currentRecursionCount: 1
+        // currentTileIndex: 1, currentTileVal: 4, originalTileVal: 6, currentRecursionCount: 1
+          // currentTileIndex: 2, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 1
+          // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 2
+          // currentTileIndex: 4, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 3
+          // currentTileIndex: 5, currentTileVal: 0, originalTileVal: 4, currentRecursionCount: 4
+          // fail
+        // currentTileIndex: 2, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 2
+          // fails
+        // currentTileIndex: 3, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 3
+          // fails
+        // currentTileIndex: 4, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 4
+          // fails
+        // currentTileIndex: 5, currentTileVal: 0, originalTileVal: 6, currentRecursionCount: 5
+          // fails
+        // currentTileIndex: 6, currentTileVal: 3, originalTileVal: 6, currentRecursionCount: 6
+    // pass
 }
 
 module.exports = {
