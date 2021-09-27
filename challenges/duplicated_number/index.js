@@ -7,6 +7,33 @@
 */
 
 function find_mistakes(nums = []) {
+  const duplicate = findDuplicate(nums);
+  const missing = findMissing(nums);
+
+  return duplicate + missing;
+}
+
+function findDuplicate(nums) {
+  let numsFound = [];
+
+  // loop through the `nums` array. For each number in the array, add it to `numsFound`
+  // If we find the same number again, we know it's the duplicate
+  for (let i = 0; i < nums.length; i++) {
+    const currentNum = nums[i];
+    if (numsFound.includes(currentNum)) {
+      duplicate = currentNum;
+      // stop looping through the array once we've found the duplicate
+      break;
+    } else {
+      numsFound.push(currentNum);
+    }
+
+  }
+
+  return duplicate;
+}
+
+function findMissing(nums) {
   /*
     From MDN:
       https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
@@ -16,29 +43,13 @@ function find_mistakes(nums = []) {
   */
   // generate an array of numbers from starting from one `1` to the length of the array
   const expectedNums = Array.from({length: nums.length}, (v, i) => i + 1);
-  const duplicate = findDuplicate(nums);
-  let missing;
-
   expectedNums.forEach((num, i) => {
     if (!nums.includes(i)) {
       missing = i;
     }
   });
 
-  return duplicate + missing;
-}
-
-function findDuplicate(nums) {
-  let numsAdded = [];
-  nums.forEach(num => {
-    if (numsAdded.includes(num)) {
-      duplicate = num;
-    } else {
-      numsAdded.push(num);
-    }
-  });
-
-  return duplicate;
+  return missing;
 }
 
 module.exports = {
