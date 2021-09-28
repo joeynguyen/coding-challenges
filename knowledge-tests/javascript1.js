@@ -1,4 +1,20 @@
 // What is the result of the code below?
+for (var i =0; i< 3; i++) {
+    settimeout(function() {
+        f(i);
+    }, 0)
+}
+for (var i =0; i< 3; i++) {
+    settimeout(function() {
+        f(i);
+    }, 0)
+}
+function f(str) {
+    console.log(i)
+}
+
+
+// What is the result of the code below?
 function myFunction(y1, y2, ...y3) {
   const [x1, ...[result]] = y3;
   console.log(result);
@@ -39,6 +55,8 @@ console.log(obj.prop);
 
 
 // What is the result of the code below?
+
+// Below is the definition of an array
 let myArray = [1, 2];
 myArray.customProperty = true;
 
